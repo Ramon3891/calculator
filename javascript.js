@@ -24,55 +24,20 @@
         display.textContent += ".";
     };
 
-    one.addEventListener ("click", numberOne);
-    function numberOne() {
-        display.textContent += "1";
-    };
+    const numberButtons = document.querySelectorAll("#keyboard .number");
+numberButtons.forEach(button => {
+    button.addEventListener("click", handleNumberClick);
+});
 
-    two.addEventListener ("click", numberTwo);
-    function numberTwo() {
-        display.textContent += "2";
-    };
+function handleNumberClick(event) {
+  var clickedElement = event.target;
+  
+  if (clickedElement.classList.contains("number")) {
+    var numberText = clickedElement.textContent.trim();
+    display.textContent += numberText;
+  }
+}
 
-    three.addEventListener ("click", numberThree);
-    function numberThree() {
-        display.textContent += "3";
-    };
-
-    four.addEventListener ("click", numberFour);
-    function numberFour() {
-        display.textContent += "4";
-    };
-
-    five.addEventListener ("click", numberFive);
-    function numberFive() {
-        display.textContent += "5";
-    };
-
-    six.addEventListener ("click", numberSix);
-    function numberSix() {
-        display.textContent += "6";
-    };
-
-    seven.addEventListener ("click", numberSeven);
-    function numberSeven() {
-        display.textContent += "7";
-    };
-
-    eight.addEventListener ("click", numberEight);
-    function numberEight() {
-        display.textContent += "8";
-    };
-
-    nine.addEventListener ("click", numberNine);
-    function numberNine() {
-        display.textContent += "9";
-    };
-
-    zero.addEventListener ("click", numberZero);
-    function numberZero() {
-        display.textContent += "0";
-    };
     
     let firstNumber = document.getElementById("display").value;
     let secondNumber = document.getElementById("display").value;

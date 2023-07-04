@@ -1,29 +1,3 @@
-    const percent = document.getElementById("percent");
-    const clearLast = document.getElementById("clearLast");
-    const clearAll = document.getElementById("clearAll");
-    const comma = document.getElementById("comma");
-    const divide = document.getElementById("divide");
-    const multiply = document.getElementById("multiply");
-    const add = document.getElementById("add");
-    const subtract = document.getElementById("subtract");
-    const equal = document.getElementById("equal");
-    const one = document.getElementById("one");
-    const two = document.getElementById("two");
-    const three = document.getElementById("three");
-    const four = document.getElementById("four");
-    const five = document.getElementById("five");
-    const six = document.getElementById("six");
-    const seven = document.getElementById("seven");
-    const eight = document.getElementById("eight");
-    const nine = document.getElementById("nine");
-    const zero = document.getElementById("zero");
-    let display = document.getElementById("display");
-
-    comma.addEventListener ("click", insertComma);
-    function insertComma() {
-        display.textContent += ".";
-    };
-
     const numberButtons = document.querySelectorAll("#keyboard .number");
 numberButtons.forEach(button => {
     button.addEventListener("click", handleNumberClick);
@@ -42,6 +16,11 @@ function handleNumberClick(event) {
     let firstNumber = document.getElementById("display").value;
     let secondNumber = document.getElementById("display").value;
     let selectedOperation = null;
+
+    comma.addEventListener ("click", insertComma);
+    function insertComma() {
+        display.textContent += ".";
+    };
 
     clearAll.addEventListener ("click", deleteAll);
     function deleteAll() {
@@ -89,28 +68,21 @@ function handleNumberClick(event) {
         return selectedOperation = "divide";
     };
 
-    equal.addEventListener ("click", function() {
+    equal.addEventListener("click", function() {
         if (selectedOperation === "multiply") {
-            secondNumber = display.textContent;
-            let operand = Number(secondNumber);
-            display.textContent = firstNumber * operand;
+            secondNumber = Number(display.textContent);
+            display.textContent = parseFloat((firstNumber * secondNumber).toFixed(2));
         } else if (selectedOperation === "subtract") {
-            secondNumber = display.textContent;
-            let operand = Number(secondNumber);
-            display.textContent = firstNumber - operand;
+            secondNumber = Number(display.textContent);
+            display.textContent = parseFloat((firstNumber - secondNumber).toFixed(2));
         } else if (selectedOperation === "divide") {
-            secondNumber = display.textContent;
-            let operand = Number(secondNumber);
-            display.textContent = firstNumber / operand;
+            secondNumber = Number(display.textContent);
+            display.textContent = parseFloat((firstNumber / secondNumber).toFixed(2));
         } else if (selectedOperation === "percent") {
-            secondNumber = display.textContent;
-            let operand = Number(secondNumber);
-            display.textContent = ((firstNumber/100) * secondNumber);
+            secondNumber = Number(display.textContent);
+            display.textContent = parseFloat(((firstNumber / 100) * secondNumber).toFixed(2));
         } else {
-            secondNumber = display.textContent;
-            let operand = Number(secondNumber)
-            display.textContent = firstNumber + operand;
+            secondNumber = Number(display.textContent);
+            display.textContent = parseFloat((firstNumber + secondNumber).toFixed(2));
         }
     });
-
-    

@@ -105,7 +105,7 @@ function handleNumberClick(event) {
         } else if (selectedOperation === "percent") {
             secondNumber = display.textContent;
             let operand = Number(secondNumber);
-            display.textContent = ((firstNumberPercent/100) * secondNumber);
+            display.textContent = ((firstNumber/100) * secondNumber);
         } else {
             secondNumber = display.textContent;
             let operand = Number(secondNumber)

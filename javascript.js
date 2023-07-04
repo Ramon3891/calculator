@@ -20,126 +20,132 @@
     let display = document.getElementById("display");
 
     comma.addEventListener ("click", insertComma);
-    one.addEventListener ("click", numberOne);
-    two.addEventListener ("click", numberTwo);
-    three.addEventListener ("click", numberThree);
-    four.addEventListener ("click", numberFour);
-    five.addEventListener ("click", numberFive);
-    six.addEventListener ("click", numberSix);
-    seven.addEventListener ("click", numberSeven);
-    eight.addEventListener ("click", numberEight);
-    nine.addEventListener ("click", numberNine);
-    zero.addEventListener ("click", numberZero);
-    
-    let firstNumberAdd = document.getElementById("display").value;
-    let firstNumberSub = document.getElementById("display").value;
-    let firstNumberMultiply = document.getElementById("display").value;
-    let firstNumberDivide = document.getElementById("display").value;
-    let secondNumber = document.getElementById("display").value;
-   
     function insertComma() {
         display.textContent += ".";
     };
 
+    one.addEventListener ("click", numberOne);
     function numberOne() {
         display.textContent += "1";
     };
 
+    two.addEventListener ("click", numberTwo);
     function numberTwo() {
         display.textContent += "2";
     };
 
+    three.addEventListener ("click", numberThree);
     function numberThree() {
         display.textContent += "3";
     };
 
+    four.addEventListener ("click", numberFour);
     function numberFour() {
         display.textContent += "4";
     };
 
+    five.addEventListener ("click", numberFive);
     function numberFive() {
         display.textContent += "5";
     };
 
+    six.addEventListener ("click", numberSix);
     function numberSix() {
         display.textContent += "6";
     };
 
+    seven.addEventListener ("click", numberSeven);
     function numberSeven() {
         display.textContent += "7";
     };
 
+    eight.addEventListener ("click", numberEight);
     function numberEight() {
         display.textContent += "8";
     };
 
+    nine.addEventListener ("click", numberNine);
     function numberNine() {
         display.textContent += "9";
     };
 
+    zero.addEventListener ("click", numberZero);
     function numberZero() {
         display.textContent += "0";
+    };
+    
+    let firstNumber = document.getElementById("display").value;
+    let secondNumber = document.getElementById("display").value;
+    let selectedOperation = null;
+
+    clearAll.addEventListener ("click", deleteAll);
+    function deleteAll() {
+        window.location.reload()
+    };
+
+    clearLast.addEventListener ("click", deleteLast);
+    function deleteLast() {
+        let x = display.textContent;
+        display.textContent = x.slice(0, -1);
+    };
+
+    percent.addEventListener ("click", operationPercent);
+    function operationPercent() {
+        firstNumber = Number(display.textContent);
+        display.textContent = "";
+        return selectedOperation = "percent";
     };
 
     multiply.addEventListener ("click", operationMultiply);
     function operationMultiply() {
-        firstNumberMultiply = Number(display.textContent);
+        firstNumber = Number(display.textContent);
         display.textContent = "";
-        return firstNumberMultiply;
+        return selectedOperation = "multiply";
     };
 
     add.addEventListener ("click", operationAdd);
     function operationAdd() {
-        firstNumberAdd = Number(display.textContent);
+        firstNumber = Number(display.textContent);
         display.textContent = "";
-        return firstNumberAdd;
+        return selectedOperation = "addiction";
     };
 
     subtract.addEventListener ("click", operationSub);
     function operationSub() {
-        firstNumberSub = Number(display.textContent);
+        firstNumber = Number(display.textContent);
         display.textContent = "";
-        return firstNumberSub;
+        return selectedOperation = "subtract";
     };
 
     divide.addEventListener ("click", operationDiv);
     function operationDiv() {
-        firstNumberDivide = Number(display.textContent);
+        firstNumber = Number(display.textContent);
         display.textContent = "";
-        return firstNumberDivide;
+        return selectedOperation = "divide";
     };
 
     equal.addEventListener ("click", function() {
-        if (firstNumberMultiply != undefined) {
-            resultMultiply ();
-        } else if (firstNumberSub != undefined) {
-            resultSub ();
-        } else if (firstNumberDivide != undefined) {
-            resultDivide ();
-        }   else {
-            resultAdd ();
+        if (selectedOperation === "multiply") {
+            secondNumber = display.textContent;
+            let operand = Number(secondNumber);
+            display.textContent = firstNumber * operand;
+        } else if (selectedOperation === "subtract") {
+            secondNumber = display.textContent;
+            let operand = Number(secondNumber);
+            display.textContent = firstNumber - operand;
+        } else if (selectedOperation === "divide") {
+            secondNumber = display.textContent;
+            let operand = Number(secondNumber);
+            display.textContent = firstNumber / operand;
+        } else if (selectedOperation === "percent") {
+            secondNumber = display.textContent;
+            let operand = Number(secondNumber);
+            display.textContent = ((firstNumberPercent/100) * secondNumber);
+        } else {
+            secondNumber = display.textContent;
+            let operand = Number(secondNumber)
+            display.textContent = firstNumber + operand;
         }
     });
-
-    
-    function resultMultiply () {
-        secondNumber = Number(display.textContent);
-        display.textContent = firstNumberMultiply * secondNumber;
-    };
-
-    function resultDivide () {
-        secondNumber = Number(display.textContent);
-        display.textContent = firstNumberDivide / secondNumber;
-    };
-
-    function resultAdd () {
-        secondNumber = Number(display.textContent);
-        display.textContent = firstNumberAdd + secondNumber;
-    };
-
-    function resultSub () {
-        secondNumber = Number(display.textContent);
-        display.textContent = firstNumberSub - secondNumber;
-    };
 
     

@@ -1,88 +1,100 @@
-    const numberButtons = document.querySelectorAll("#keyboard .number");
+let firstNumber = "";
+let secondNumber = "";
+let operator = null;
+
+const numberButtons = document.querySelectorAll("#keyboard .number");
 numberButtons.forEach(button => {
-    button.addEventListener("click", handleNumberClick);
+  button.addEventListener("click", handleNumberClick);
+});
+
+window.addEventListener('keydown', function(event) {
+  let keyPressed = event.key; 
+
+  if (keyPressed >= '0' && keyPressed <= '9') {
+    handleKeyPress(keyPressed);
+  } else if (keyPressed === '+' || keyPressed === '-' || keyPressed === '*' || keyPressed === '/' || keyPressed === '%') {
+    handleOperatorKey(keyPressed);
+  } else if (keyPressed === '.' || keyPressed === ',') {
+    insertComma();
+  } else if (keyPressed === 'Enter') {
+    calculateResult();
+  }
 });
 
 function handleNumberClick(event) {
-  var clickedElement = event.target;
-  
+  let clickedElement = event.target;
+
   if (clickedElement.classList.contains("number")) {
-    var numberText = clickedElement.textContent.trim();
+    let numberText = clickedElement.textContent.trim();
     display.textContent += numberText;
   }
 }
 
-    
-    let firstNumber = document.getElementById("display").value;
-    let secondNumber = document.getElementById("display").value;
-    let selectedOperation = null;
+function handleKeyPress(key) {
+  if (key >= '0' && key <= '9') {
+    display.textContent += key;
+  }
+}
 
-    comma.addEventListener ("click", insertComma);
-    function insertComma() {
-        display.textContent += ".";
-    };
+comma.addEventListener("click", insertComma);
+function insertComma() {
+  if (!display.textContent.includes('.')) {
+    display.textContent += '.';
+  }
+}
 
-    clearAll.addEventListener ("click", deleteAll);
-    function deleteAll() {
+clearAll.addEventListener ("click", deleteAll);
+function deleteAll() {
         window.location.reload()
-    };
+};
 
-    clearLast.addEventListener ("click", deleteLast);
-    function deleteLast() {
-        let x = display.textContent;
-        display.textContent = x.slice(0, -1);
-    };
+clearLast.addEventListener("click", deleteLast);
+function deleteLast() {
+  let x = display.textContent;
+  display.textContent = x.slice(0, -1);
+}
 
-    percent.addEventListener ("click", operationPercent);
-    function operationPercent() {
-        firstNumber = Number(display.textContent);
-        display.textContent = "";
-        return selectedOperation = "percent";
-    };
+const operatorButtons = document.querySelectorAll(".operator:not(#equal, #comma, #clearAll, #clearLast)");
+operatorButtons.forEach(opBut => {
+  opBut.addEventListener("click", handleOperator);
+});
 
-    multiply.addEventListener ("click", operationMultiply);
-    function operationMultiply() {
-        firstNumber = Number(display.textContent);
-        display.textContent = "";
-        return selectedOperation = "multiply";
-    };
+function handleOperator(event) {
+  let clickedOperator = event.target;
 
-    add.addEventListener ("click", operationAdd);
-    function operationAdd() {
-        firstNumber = Number(display.textContent);
-        display.textContent = "";
-        return selectedOperation = "addiction";
-    };
+  if (clickedOperator.classList.contains("operator")) {
+    operator = clickedOperator.textContent.trim();
+    firstNumber = Number(display.textContent);
+    display.textContent = "";
+  }
+}
 
-    subtract.addEventListener ("click", operationSub);
-    function operationSub() {
-        firstNumber = Number(display.textContent);
-        display.textContent = "";
-        return selectedOperation = "subtract";
-    };
+function handleOperatorKey(key) {
+  if (key === '/') {
+    operator = "÷";
+  } else {
+    operator = key;
+  }
+  firstNumber = Number(display.textContent);
+  display.textContent = "";
+}
 
-    divide.addEventListener ("click", operationDiv);
-    function operationDiv() {
-        firstNumber = Number(display.textContent);
-        display.textContent = "";
-        return selectedOperation = "divide";
-    };
+equal.addEventListener("click", calculateResult);
+function calculateResult() {
+  secondNumber = Number(display.textContent);
+  let result;
 
-    equal.addEventListener("click", function() {
-        if (selectedOperation === "multiply") {
-            secondNumber = Number(display.textContent);
-            display.textContent = parseFloat((firstNumber * secondNumber).toFixed(2));
-        } else if (selectedOperation === "subtract") {
-            secondNumber = Number(display.textContent);
-            display.textContent = parseFloat((firstNumber - secondNumber).toFixed(2));
-        } else if (selectedOperation === "divide") {
-            secondNumber = Number(display.textContent);
-            display.textContent = parseFloat((firstNumber / secondNumber).toFixed(2));
-        } else if (selectedOperation === "percent") {
-            secondNumber = Number(display.textContent);
-            display.textContent = parseFloat(((firstNumber / 100) * secondNumber).toFixed(2));
-        } else {
-            secondNumber = Number(display.textContent);
-            display.textContent = parseFloat((firstNumber + secondNumber).toFixed(2));
-        }
-    });
+  if (operator === "*") {
+    result = firstNumber * secondNumber;
+  } else if (operator === "-") {
+    result = firstNumber - secondNumber;
+  } else if (operator === "/" || operator === "÷") {
+    result = firstNumber / secondNumber;
+  } else if (operator === "%") {
+    result = (firstNumber / 100) * secondNumber;
+  } else {
+    result = firstNumber + secondNumber;
+  }
+
+  display.textContent = parseFloat(result.toFixed(2));
+}

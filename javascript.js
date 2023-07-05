@@ -15,7 +15,8 @@ window.addEventListener('keydown', function(event) {
   } else if (keyPressed === '+' || 
              keyPressed === '-' || 
              keyPressed === '*' || 
-             keyPressed === '%' || (keyPressed === '/' && event.target.tagName !== 'INPUT')) {
+             keyPressed === '%' || 
+             keyPressed === '/') {
     handleOperatorKey(keyPressed);
     event.preventDefault();
   } else if (keyPressed === '.' || keyPressed === ',') {

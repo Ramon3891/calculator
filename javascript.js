@@ -12,8 +12,12 @@ window.addEventListener('keydown', function(event) {
 
   if (keyPressed >= '0' && keyPressed <= '9') {
     handleKeyPress(keyPressed);
-  } else if (keyPressed === '+' || keyPressed === '-' || keyPressed === '*' || keyPressed === '/' || keyPressed === '%') {
+  } else if (keyPressed === '+' || 
+             keyPressed === '-' || 
+             keyPressed === '*' || 
+             keyPressed === '%' || (keyPressed === '/' && event.target.tagName !== 'INPUT')) {
     handleOperatorKey(keyPressed);
+    event.preventDefault();
   } else if (keyPressed === '.' || keyPressed === ',') {
     insertComma();
   } else if (keyPressed === 'Enter') {
@@ -91,7 +95,7 @@ function calculateResult() {
     result = firstNumber * secondNumber;
   } else if (operator === "-") {
     result = firstNumber - secondNumber;
-  } else if (operator === "/" || operator === "÷") {
+  } else if (operator === "÷") {
     result = firstNumber / secondNumber;
   } else if (operator === "%") {
     result = (firstNumber / 100) * secondNumber;

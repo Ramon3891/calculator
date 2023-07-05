@@ -43,7 +43,7 @@ function insertComma() {
   }
 }
 
-clearAll.addEventListener ("click", deleteAll);
+clearAll.addEventListener ("click", deleteAll); // A page refresh is the simpler solution for that
 function deleteAll() {
         window.location.reload()
 };
@@ -54,7 +54,10 @@ function deleteLast() {
   display.textContent = x.slice(0, -1);
 }
 
-const operatorButtons = document.querySelectorAll(".operator:not(#equal, #comma, #clearAll, #clearLast)");
+const operatorButtons = document.querySelectorAll(
+  ".operator:not(#equal, #comma, #clearAll, #clearLast)"
+  // style.css requires these divs to have the class 'operator'
+  );
 operatorButtons.forEach(opBut => {
   opBut.addEventListener("click", handleOperator);
 });
@@ -84,7 +87,7 @@ function calculateResult() {
   secondNumber = Number(display.textContent);
   let result;
 
-  if (operator === "*") {
+  if (operator === "*" || operator === "X") {
     result = firstNumber * secondNumber;
   } else if (operator === "-") {
     result = firstNumber - secondNumber;
